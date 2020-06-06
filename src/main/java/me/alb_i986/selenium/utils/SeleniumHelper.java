@@ -13,14 +13,18 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class SeleniumHelper {
 
-    public static final int DEFAULT_WAIT_TIMEOUT = 20; // TODO configurable
+    public static final int DEFAULT_WAIT_TIMEOUT = 20;
 
     private final WebDriver driver;
     private final WebDriverWait wait;
 
     public SeleniumHelper(WebDriver driver) {
+        this(driver, DEFAULT_WAIT_TIMEOUT);
+    }
+
+    public SeleniumHelper(WebDriver driver, long waitTimeout) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, DEFAULT_WAIT_TIMEOUT);
+        this.wait = new WebDriverWait(driver, waitTimeout);
     }
 
     public void click(By by) {
