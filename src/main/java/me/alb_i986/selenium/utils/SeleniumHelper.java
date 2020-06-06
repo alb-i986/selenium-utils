@@ -6,16 +6,22 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.util.function.Function;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class SeleniumHelper {
 
+    final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
     public static final int DEFAULT_WAIT_TIMEOUT = 20;
 
     private final WebDriver driver;
+    private final long waitTimeout;
     private final WebDriverWait wait;
 
     public SeleniumHelper(WebDriver driver) {
@@ -24,25 +30,30 @@ public class SeleniumHelper {
 
     public SeleniumHelper(WebDriver driver, long waitTimeout) {
         this.driver = driver;
+        this.waitTimeout = waitTimeout;
         this.wait = new WebDriverWait(driver, waitTimeout);
     }
 
     public void click(By by) {
+        logger.debug("Clicking {}", by);
         waitUntil(elementToBeClickable(by))
                 .click();
     }
 
     public void enterText(By by, String text) {
+        logger.debug("Typing '{}' into {}", text, by);
         waitUntil(visibilityOfElementLocated(by))
                 .sendKeys(text);
     }
 
-    public void selectByVisibleText(By by, String option) {
+    public void selectByVisibleText(By by, String optionText) {
+        logger.debug("Selecting '{}' in select element {}", optionText, by);
         Select select = getSelect(by);
-        select.selectByVisibleText(option);
+        select.selectByVisibleText(optionText);
     }
 
     public void selectByValue(By by, String optionValue) {
+        logger.debug("Selecting the option where value='{}' in {}", optionValue, by);
         Select select = getSelect(by);
         select.selectByValue(optionValue);
     }
@@ -61,6 +72,7 @@ public class SeleniumHelper {
     }
 
     public <T> T waitUntil(Function<? super WebDriver, T> expectedCondition) {
+        logger.trace("Waiting for max {}s until {}", waitTimeout, expectedCondition);
         return wait.until(expectedCondition);
     }
 
@@ -89,6 +101,7 @@ public class SeleniumHelper {
         }
 
         public <T> T until(Function<? super WebDriver, T> expectedCondition) {
+            logger.trace("Waiting for max {}s until {}", customWaitTimeout, expectedCondition);
             return new WebDriverWait(driver, customWaitTimeout)
                     .until(expectedCondition);
         }
