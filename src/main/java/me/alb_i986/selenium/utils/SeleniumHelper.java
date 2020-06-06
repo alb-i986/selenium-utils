@@ -60,6 +60,10 @@ public class SeleniumHelper {
         return new JavascriptHelper();
     }
 
+    public <T> T waitUntil(Function<? super WebDriver, T> expectedCondition) {
+        return wait.until(expectedCondition);
+    }
+
     /**
      * Wait con timeout customizzabile.
      */
