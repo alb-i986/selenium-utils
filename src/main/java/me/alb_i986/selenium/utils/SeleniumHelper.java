@@ -52,7 +52,7 @@ public class SeleniumHelper {
         return new Select(selectElement);
     }
 
-    public FrameHelper switchHelper() {
+    public FrameHelper frameHelper() {
         return new FrameHelper();
     }
 
@@ -97,16 +97,16 @@ public class SeleniumHelper {
         private JavascriptHelper() {}
 
         public JavascriptHelper scrollToTop() {
-            windowScrollTo(0, 0);
+            scrollTo(0, 0);
             return this;
         }
 
-        public JavascriptHelper windowScrollTo(int x, int y) {
+        public JavascriptHelper scrollTo(int x, int y) {
             executeJavascript(String.format("window.scrollTo(%d, %d)", x, y));
             return this;
         }
 
-        public JavascriptHelper windowScrollBy(int x, int y) {
+        public JavascriptHelper scrollBy(int x, int y) {
             executeJavascript(String.format("window.scrollBy(%d, %d)", x, y));
             return this;
         }
@@ -130,8 +130,8 @@ public class SeleniumHelper {
             switchToFrame(By.tagName("iframe"));
         }
 
-        public void switchToFrame(By iframeLocator) {
-            wait.until(frameToBeAvailableAndSwitchToIt(iframeLocator));
+        public void switchToFrame(By frameLocator) {
+            wait.until(frameToBeAvailableAndSwitchToIt(frameLocator));
         }
     }
 }
