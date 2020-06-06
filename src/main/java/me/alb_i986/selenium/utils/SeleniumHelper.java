@@ -75,6 +75,8 @@ public class SeleniumHelper {
 
         private WebDriverWait customWait;
 
+        private WaitHelper() {}
+
         public WaitHelper forMaxSeconds(long seconds) {
             this.customWait = new WebDriverWait(driver, seconds);
             return this;
@@ -86,6 +88,8 @@ public class SeleniumHelper {
     }
 
     public class JavascriptHelper {
+
+        private JavascriptHelper() {}
 
         public JavascriptHelper scrollToTop() {
             windowScrollTo(0, 0);
@@ -114,6 +118,8 @@ public class SeleniumHelper {
     }
 
     public class FrameHelper {
+
+        private FrameHelper() {}
 
         public void switchToFirstIframe() {
             switchToFrame(By.tagName("iframe"));
