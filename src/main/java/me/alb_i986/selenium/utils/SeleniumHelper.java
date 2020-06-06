@@ -28,12 +28,12 @@ public class SeleniumHelper {
     }
 
     public void click(By by) {
-        wait.until(elementToBeClickable(by))
+        waitUntil(elementToBeClickable(by))
                 .click();
     }
 
     public void enterText(By by, String text) {
-        wait.until(visibilityOfElementLocated(by))
+        waitUntil(visibilityOfElementLocated(by))
                 .sendKeys(text);
     }
 
@@ -48,7 +48,7 @@ public class SeleniumHelper {
     }
 
     private Select getSelect(By by) {
-        WebElement selectElement = wait.until(visibilityOfElementLocated(by));
+        WebElement selectElement = waitUntil(visibilityOfElementLocated(by));
         return new Select(selectElement);
     }
 
@@ -77,17 +77,18 @@ public class SeleniumHelper {
 
     public class WaitHelper {
 
-        private WebDriverWait customWait;
+        private long customWaitTimeout = waitTimeout;
 
         private WaitHelper() {}
 
         public WaitHelper forMaxSeconds(long seconds) {
-            this.customWait = new WebDriverWait(driver, seconds);
+            this.customWaitTimeout = seconds;
             return this;
         }
 
         public <T> T until(Function<? super WebDriver, T> expectedCondition) {
-            return (customWait != null ? customWait : wait).until(expectedCondition);
+            return new WebDriverWait(driver, customWaitTimeout)
+                    .until(expectedCondition);
         }
     }
 
