@@ -65,7 +65,9 @@ public class SeleniumHelper {
     }
 
     /**
-     * Wait con timeout customizzabile.
+     * Wait with a customizable timeout.
+     *
+     * @see WaitHelper#forMaxSeconds(long)
      */
     public WaitHelper waitt() {
         return new WaitHelper();
