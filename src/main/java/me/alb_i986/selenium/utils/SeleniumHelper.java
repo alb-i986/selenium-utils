@@ -72,7 +72,7 @@ public class SeleniumHelper {
     }
 
     public <T> T waitUntil(Function<? super WebDriver, T> expectedCondition) {
-        logger.trace("Waiting for max {}s until {}", waitTimeout, expectedCondition);
+        logger.trace("Waiting (max {}s) for {}", waitTimeout, expectedCondition);
         return wait.until(expectedCondition);
     }
 
@@ -101,7 +101,7 @@ public class SeleniumHelper {
         }
 
         public <T> T until(Function<? super WebDriver, T> expectedCondition) {
-            logger.trace("Waiting for max {}s until {}", customWaitTimeout, expectedCondition);
+            logger.trace("Waiting (max {}s) for {}", customWaitTimeout, expectedCondition);
             return new WebDriverWait(driver, customWaitTimeout)
                     .until(expectedCondition);
         }
