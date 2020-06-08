@@ -40,19 +40,19 @@ public class SeleniumHelper {
                 .click();
     }
 
-    public void enterText(By by, String text) {
+    public void enterText(String text, By by) {
         logger.debug("Typing '{}' into {}", text, by);
         waitUntil(visibilityOfElementLocated(by))
                 .sendKeys(text);
     }
 
-    public void selectByVisibleText(By by, String optionText) {
+    public void selectByVisibleText(String optionText, By by) {
         logger.debug("Selecting '{}' in select element {}", optionText, by);
         Select select = getSelect(by);
         select.selectByVisibleText(optionText);
     }
 
-    public void selectByValue(By by, String optionValue) {
+    public void selectByValue(String optionValue, By by) {
         logger.debug("Selecting the option where value='{}' in {}", optionValue, by);
         Select select = getSelect(by);
         select.selectByValue(optionValue);
