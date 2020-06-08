@@ -131,6 +131,11 @@ public class SeleniumHelper {
             return this;
         }
 
+        public JavascriptHelper scrollToElement(WebElement element) {
+            executeJavascript("arguments[0].scrollIntoView(true);", element);
+            return this;
+        }
+
         public JavascriptHelper executeJavascript(String js, Object... args) {
             ((JavascriptExecutor) driver).executeScript(js, args);
             return this;
