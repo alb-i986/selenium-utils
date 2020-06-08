@@ -42,8 +42,9 @@ public class SeleniumHelper {
 
     public void enterText(String text, By by) {
         logger.debug("Typing '{}' into {}", text, by);
-        waitUntil(visibilityOfElementLocated(by))
-                .sendKeys(text);
+        WebElement textField = waitUntil(visibilityOfElementLocated(by));
+        textField.clear();
+        textField.sendKeys(text);
     }
 
     public void selectByVisibleText(String optionText, By by) {
