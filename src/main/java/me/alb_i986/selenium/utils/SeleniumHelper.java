@@ -64,12 +64,8 @@ public class SeleniumHelper {
         return new Select(selectElement);
     }
 
-    public FrameHelper frameHelper() {
-        return new FrameHelper();
-    }
-
-    public JavascriptHelper javascriptHelper() {
-        return new JavascriptHelper();
+    public void browseTo(String url) {
+        driver.get(url);
     }
 
     public <T> T waitUntil(Function<? super WebDriver, T> expectedCondition) {
@@ -84,10 +80,6 @@ public class SeleniumHelper {
      */
     public WaitHelper waitt() {
         return new WaitHelper();
-    }
-
-    public WebDriver getDriver() {
-        return driver;
     }
 
     public class WaitHelper {
@@ -106,6 +98,10 @@ public class SeleniumHelper {
             return new WebDriverWait(driver, customWaitTimeout)
                     .until(expectedCondition);
         }
+    }
+
+    public JavascriptHelper javascriptHelper() {
+        return new JavascriptHelper();
     }
 
     public class JavascriptHelper {
@@ -143,6 +139,10 @@ public class SeleniumHelper {
         }
     }
 
+    public FrameHelper frameHelper() {
+        return new FrameHelper();
+    }
+
     public class FrameHelper {
 
         private FrameHelper() {}
@@ -154,5 +154,9 @@ public class SeleniumHelper {
         public void switchToFrame(By frameLocator) {
             wait.until(frameToBeAvailableAndSwitchToIt(frameLocator));
         }
+    }
+
+    public WebDriver getDriver() {
+        return driver;
     }
 }
